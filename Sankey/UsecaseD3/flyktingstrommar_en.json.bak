@@ -1,0 +1,53 @@
+{
+  "nodes2010": [
+    {
+      "_id": 1,
+      "name": "Z1231",
+      "_short": "fi"
+    }
+    ],
+    "nodes2014": [
+    {
+      "_id": 2,
+      "name": "7025F,77052,G0202",
+      "_short": "ny"
+    },
+    {
+      "_id": 3,
+      "name": "77052,G0202",
+      "_short": "bs"
+    },
+    {
+      "_id": 4,
+      "name": "7025F,77052",
+      "_short": "ch"
+    },
+    {
+      "_id": 5,
+      "name": "77052",
+      "_short": "la"
+    }
+  ],
+  "links": [
+    {
+      "source": 1,
+      "value": 3,
+      "target": 2
+    },
+    {
+      "source": 1,
+      "value": 2,
+      "target": 3
+    },
+    {
+      "source": 1,
+      "value": 2,
+      "target": 4
+    },
+    {
+      "source": 1,
+      "value": 3,
+      "target": 5
+    }
+  ]
+}

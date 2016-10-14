@@ -1,0 +1,71 @@
+source,target,value
+Baystate Medical Center,1,209
+Baystate Medical Center,2,266
+Baystate Medical Center,3,258
+Baystate Medical Center,4,234
+Baystate Medical Center,5,144
+Baystate Medical Center,6,161
+Baystate Medical Center,7,97
+Baystate Medical Center,8,67
+Baystate Medical Center,9,36
+Baystate Medical Center,>=10,179
+Beth Israel Deaconess Medical Center,1,81
+Beth Israel Deaconess Medical Center,2,71
+Beth Israel Deaconess Medical Center,3,68
+Beth Israel Deaconess Medical Center,4,50
+Beth Israel Deaconess Medical Center,5,40
+Beth Israel Deaconess Medical Center,6,46
+Beth Israel Deaconess Medical Center,7,32
+Beth Israel Deaconess Medical Center,8,17
+Beth Israel Deaconess Medical Center,9,15
+Beth Israel Deaconess Medical Center,>=10,86
+Boston Medical Center,1,149
+Boston Medical Center,2,188
+Boston Medical Center,3,151
+Boston Medical Center,4,94
+Boston Medical Center,5,110
+Boston Medical Center,6,59
+Boston Medical Center,7,59
+Boston Medical Center,8,24
+Boston Medical Center,9,12
+Boston Medical Center,>=10,78
+Cambridge Public Health Commission,1,97
+Cambridge Public Health Commission,2,85
+Cambridge Public Health Commission,3,69
+Cambridge Public Health Commission,4,65
+Cambridge Public Health Commission,5,45
+Cambridge Public Health Commission,6,44
+Cambridge Public Health Commission,7,20
+Cambridge Public Health Commission,8,11
+Cambridge Public Health Commission,9,1
+Cambridge Public Health Commission,>=10,45
+Cambridge Public Health Commission,1,91
+North Shore Medical Center ,2,104
+North Shore Medical Center ,3,76
+North Shore Medical Center ,4,59
+North Shore Medical Center ,5,43
+North Shore Medical Center ,6,34
+North Shore Medical Center ,7,11
+North Shore Medical Center ,8,5
+North Shore Medical Center ,9,8
+North Shore Medical Center ,>=10,65
+1,Readmit-NO,529
+2,Readmit-NO,592
+3,Readmit-NO,505
+4,Readmit-NO,401
+5,Readmit-NO,295
+6,Readmit-NO,265
+7,Readmit-NO,149
+8,Readmit-NO,90
+9,Readmit-NO,53
+>=10,Readmit-NO,441
+1,Readmit-Yes,98
+2,Readmit-Yes,122
+3,Readmit-Yes,117
+4,Readmit-Yes,101
+5,Readmit-Yes,87
+6,Readmit-Yes,79
+7,Readmit-Yes,70
+8,Readmit-Yes,34
+9,Readmit-Yes,19
+>=10,Readmit-Yes,79

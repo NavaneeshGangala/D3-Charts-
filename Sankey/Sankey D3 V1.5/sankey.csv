@@ -1,0 +1,31 @@
+source,target,value
+Non-Health Faclity ,Baystate Medical Center,0.457793143
+Hospital,Baystate Medical Center,0.413333333
+SNF/ICF,Baystate Medical Center,0.543478261
+Same Hospital,Baystate Medical Center,0.105263158
+Clinic  ,Beth Israel Deaconess Medical Center,0.80875576
+Non-Health Faclity ,Beth Israel Deaconess Medical Center,0.027081533
+Hospital,Beth Israel Deaconess Medical Center,0.386666667
+SNF/ICF,Beth Israel Deaconess Medical Center,0.326086957
+ Another Health Faclity,Beth Israel Deaconess Medical Center,0.2
+Same Hospital,Beth Israel Deaconess Medical Center,0.789473684
+Clinic  ,Boston Medical Center,0.188940092
+Non-Health Faclity ,Boston Medical Center,0.234514549
+Hospital,Boston Medical Center,0.186666667
+SNF/ICF,Boston Medical Center,0.130434783
+ Another Health Faclity,Boston Medical Center,0.8
+Clinic  ,Cambridge Public Health Commission,0.002304147
+Non-Health Faclity ,Cambridge Public Health Commission,0.138288678
+Hospital,Cambridge Public Health Commission,0.013333333
+Non-Health Faclity ,North Shore Medical Center,0.142322097
+Same Hospital,North Shore Medical Center,0.105263158
+Baystate Medical Center,Readmit-NO,0.620013285
+Beth Israel Deaconess Medical Center,Readmit-NO,0.313092549
+Boston Medical Center,Readmit-NO,0.344331926
+Cambridge Public Health Commission,Readmit-NO,0.017484132
+North Shore Medical Center,Readmit-NO,0.032582976
+Baystate Medical Center,Readmit-Yes,0.610661208
+Beth Israel Deaconess Medical Center,Readmit-Yes,0.330207384
+Boston Medical Center,Readmit-Yes,0.377279043
+Cambridge Public Health Commission,Readmit-Yes,0.021596782
+North Shore Medical Center,Readmit-Yes,0.020526839

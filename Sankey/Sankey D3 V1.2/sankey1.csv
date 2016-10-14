@@ -1,0 +1,31 @@
+source,target,value
+Clinic  ,Beth Israel Deaconess Medical Center,351
+Clinic  ,Boston Medical Center,82
+Clinic  ,Cambridge Public Health Commission,1
+Non-Health Faclity ,Baystate Medical Center,1589
+Non-Health Faclity ,Beth Israel Deaconess Medical Center,94
+Non-Health Faclity ,Boston Medical Center,814
+Non-Health Faclity ,Cambridge Public Health Commission,480
+Non-Health Faclity ,North Shore Medical Center,494
+Hospital,Baystate Medical Center,31
+Hospital,Beth Israel Deaconess Medical Center,29
+Hospital,Boston Medical Center,14
+Hospital,Cambridge Public Health Commission,1
+SNF/ICF,Baystate Medical Center,25
+SNF/ICF,Beth Israel Deaconess Medical Center,15
+SNF/ICF,Boston Medical Center,6
+ Another Health Faclity,Beth Israel Deaconess Medical Center,2
+ Another Health Faclity,Boston Medical Center,8
+Same Hospital,Baystate Medical Center,2
+Same Hospital,Beth Israel Deaconess Medical Center,15
+Same Hospital,North Shore Medical Center,2
+Baystate Medical Center,Readmit-NO,1336
+Beth Israel Deaconess Medical Center,Readmit-NO,404
+Boston Medical Center,Readmit-NO,732
+Cambridge Public Health Commission,Readmit-NO,372
+North Shore Medical Center,Readmit-NO,431
+Baystate Medical Center,Readmit-Yes,315
+Beth Israel Deaconess Medical Center,Readmit-Yes,102
+Boston Medical Center,Readmit-Yes,192
+Cambridge Public Health Commission,Readmit-Yes,110
+North Shore Medical Center,Readmit-Yes,65
