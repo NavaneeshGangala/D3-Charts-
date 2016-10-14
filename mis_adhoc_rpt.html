@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style> /* set the CSS */
+
+body { font: 12px cursive;}
+
+path { 
+   /* stroke: steelblue;*/
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 12px;
+  padding: 8px;
+  margin-top: -20px;
+  font: 10px sans-serif;
+  background: #ddd;
+  pointer-events: none;
+}
+	/* basic positioning */
+.legend { list-style: none; }
+.legend li { float: left; margin-right: 10px; }
+.legend span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2px;}
+
+	/* your colors */
+.legend .New1 { background-color: #FF7F0E; }
+.legend .New2 { background-color: #1f77b4; }
+.legend .New3 { background-color: grey; }
+.legend .New4 { background-color: yellow; }
+.legend .New5 { background-color: green; }
+.legend .New6 { background-color: cyan; }
+
+</style>
+<body>
+<!-- load the d3.js library -->    
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+
+var durTime = 1000;
+// Set the dimensions of the canvas / graph
+var margin = {top: 30, right: 20, bottom: 30, left: 100},
+    width = 600 - margin.left - margin.right,
+    height = 370 - margin.top - margin.bottom;
+
+// Parse the date / time
+var parseDate = d3.time.format("%m/%e/%Y").parse; //
+var formatTime = d3.time.format("%e %B"); //Tool tip purpose 
+
+// Set the ranges
+var x = d3.time.scale().range([15, width]);
+var y = d3.scale.linear().range([height, 10]);
+
+// Define the axes
+var xAxis = d3.svg.axis().scale(x)
+    .orient("bottom")	
+	 .ticks(d3.time.months)
+    .tickSize(16, 0)
+    .tickFormat(d3.time.format("%b%y"));
+	
+
+var yAxis = d3.svg.axis().scale(y)
+    .orient("left").ticks(10);
+
+// Define the line
+	var valueline1 = d3.svg.line()
+    .x(function(d) { return x(d.date); })	
+    .y(function(d) { return y(d.New1); });
+
+	var valueline2 = d3.svg.line()
+    .x(function(d) { return x(d.date); })	
+    .y(function(d) { return y(d.New2); });
+	
+	var valueline3 = d3.svg.line()
+    .x(function(d) { return x(d.date); })	
+    .y(function(d) { return y(d.New3); });
+	
+	var valueline4 = d3.svg.line()
+    .x(function(d) { return x(d.date); })	
+    .y(function(d) { return y(d.New4); });
+	
+	var valueline5 = d3.svg.line()
+    .x(function(d) { return x(d.date); })	
+    .y(function(d) { return y(d.New5); });
+	
+	var valueline6 = d3.svg.line()
+    .x(function(d) { return x(d.date); })	
+    .y(function(d) { return y(d.New6); });
+	
+
+// Adds the svg canvas
+var svg = d3.select("body")
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform", 
+              "translate(" + margin.left + "," + margin.top + ")");
+   
+
+   
+// Get the data
+d3.csv("misadhocdata.csv", function(error, data) {
+  
+console.log(data);
+  
+  data.forEach(function(d) {
+        d.date = parseDate(d.date);
+        d.New1 = +d.New1;
+		d.New2 = +d.New2;
+		d.New3 = +d.New3;
+		d.New4 = +d.New4;
+		d.New5 = +d.New5;
+		d.New6 = +d.New6
+		d.New7 = +d.New7;
+		
+    });
+
+	
+    // Scale the range of the data
+    x.domain(d3.extent(data, function(d) { return d.date; }));
+	y.domain([0, d3.max(data, function(d) { return Math.max(d.New1,d.New2,d.New3,d.New4,d.New5,d.New6); })]);
+	
+					/////////////////Indiviual Line Code with Dots ///////////////////////////////
+					
+    // Add the valueline path.
+		svg.append("path")          //Referral Orange
+        .attr("class", "line")
+		.attr('stroke', '#FF7F0E')     //If you want to add functions to line add here
+		.attr("d", valueline1(data))	 ;
+		
+		// Add the scatterplot Referral
+    svg.selectAll("dot")
+        .data(data)
+      .enter().append("circle")
+        .attr("r", 3.5)
+        .attr("cx", function(d) { return x(d.date); })
+        .attr("cy", function(d) { return y(d.New1); })
+		.style("fill",'#FF7F0E')
+		//.on("mouseover", mousemoveRef1)
+		.on("mousemove", mousemoveRef1)
+		.on("mouseout", handleMouseOut1)
+		; 
+		 
+		function mousemoveRef1(d, i) {  // Add interactivity
+
+            // Use D3 to select element, change color and size
+            d3.select(this).attr({
+              fill: "#FF7F0E",
+              r: 6
+            });
+
+            // Specify where to put label of text
+            svg.append("text").attr({
+               id: "t" + d.date + "-" + d.New1 + "-" + i,  // Create an id for text so we can select it later for removing on mouseout
+                x: function() { return x(d.date); },
+                y: function() { return y(d.New1) - 15; }
+            })
+            .text(function() {
+              return [d.New1];  // Value of the text
+            })
+			.transition()
+        .duration(durTime)
+		.remove();
+          }
+		   function handleMouseOut1(d, i) {
+            // Use D3 to select element, change color back to normal
+            d3.select(this).attr({
+              fill: "White",
+              r: 3.5
+            });
+
+            // Select text by id and then remove
+            d3.select( d.New1).remove();  // Remove text location
+          }
+
+		  /////////////////<END> Indiviual Line Code with Dots <END> /////////////////////////////////////
+		  
+		  /////////////////Indiviual Line Code with Dots Line 2///////////////////////////////
+		 
+  // Add the valueline2 path.
+    svg.append("path")        //Payment Blue
+        .attr("class", "line")
+		.attr('stroke', '#1f77b4')
+		.attr('stroke-width', 2)
+		.attr("d", valueline2(data));
+
+		
+		// Add the scatterplot Payments
+    svg.selectAll("dot")
+        .data(data)
+		.enter().append("circle")
+        .attr("r", 3.5)
+        .attr("cx", function(d) { return x(d.date); })
+        .attr("cy", function(d) { return y(d.New2); })
+		.style("fill",'#1f77b4')
+		//.on("mouseover", mouseover)
+		.on("mousemove", mousemoveRef2)
+		.on("mouseout", handleMouseOut2); 
+	
+		function mousemoveRef2(d, i) {  // Add interactivity
+
+            // Use D3 to select element, change color and size
+            d3.select(this).attr({
+              fill: "#FF7F0E",
+              r: 6
+            });
+
+            // Specify where to put label of text
+            svg.append("text").attr({
+               id: "t" + d.date + "-" + d.New2 + "-" + i,  // Create an id for text so we can select it later for removing on mouseout
+                x: function() { return x(d.date); },
+                y: function() { return y(d.New2) - 15; }
+            })
+            .text(function() {
+              return [d.New2];  // Value of the text
+            })
+			.transition()
+        .duration(durTime)
+		.remove();
+          }
+		   function handleMouseOut2(d, i) {
+            // Use D3 to select element, change color back to normal
+            d3.select(this).attr({
+              fill: "White",
+              r: 3.5
+            });
+
+            // Select text by id and then remove
+            d3.select( d.New2).remove();  // Remove text location
+          }
+
+		  /////////////////<END> Indiviual Line Code with Dots Line2  <END> /////////////////////////////////////
+		  /////////////////Indiviual Line Code with Dots Line 3///////////////////////////////
+		 
+  // Add the valueline3 path.
+    svg.append("path")        //Payment Blue
+        .attr("class", "line")
+		.attr('stroke', 'grey')
+		.attr('stroke-width', 2)
+		.attr("d", valueline3(data));
+
+		
+		// Add the scatterplot Payments
+    svg.selectAll("dot")
+        .data(data)
+		.enter().append("circle")
+        .attr("r", 3.5)
+        .attr("cx", function(d) { return x(d.date); })
+        .attr("cy", function(d) { return y(d.New3); })
+		.style("fill",'grey')
+		//.on("mouseover", mouseover)
+		.on("mousemove", mousemoveRef3)
+		.on("mouseout", handleMouseOut3); 
+	
+		function mousemoveRef3(d, i) {  // Add interactivity
+
+            // Use D3 to select element, change color and size
+            d3.select(this).attr({
+              fill: "#FF7F0E",
+              r: 6
+            });
+
+            // Specify where to put label of text
+            svg.append("text").attr({
+               id: "t" + d.date + "-" + d.New3 + "-" + i,  // Create an id for text so we can select it later for removing on mouseout
+                x: function() { return x(d.date); },
+                y: function() { return y(d.New3) - 15; }
+            })
+            .text(function() {
+              return [d.New3];  // Value of the text
+            })
+			.transition()
+        .duration(durTime)
+		.remove();
+          }
+		   function handleMouseOut3(d, i) {
+            // Use D3 to select element, change color back to normal
+            d3.select(this).attr({
+              fill: "White",
+              r: 3.5
+            });
+
+            // Select text by id and then remove
+            d3.select( d.New3).remove();  // Remove text location
+          }
+
+		  /////////////////<END> Indiviual Line Code with Dots Line3  <END> /////////////////////////////////////
+
+ /////////////////Indiviual Line Code with Dots Line 4///////////////////////////////
+		 
+  // Add the valueline4 path.
+    svg.append("path")        //Payment Blue
+        .attr("class", "line")
+		.attr('stroke', 'yellow')
+		.attr('stroke-width', 2)
+		.attr("d", valueline4(data));
+
+		
+		// Add the scatterplot Payments
+    svg.selectAll("dot")
+        .data(data)
+		.enter().append("circle")
+        .attr("r", 3.5)
+        .attr("cx", function(d) { return x(d.date); })
+        .attr("cy", function(d) { return y(d.New4); })
+		.style("fill",'yellow')
+		//.on("mouseover", mouseover)
+		.on("mousemove", mousemoveRef4)
+		.on("mouseout", handleMouseOut4); 
+	
+		function mousemoveRef4(d, i) {  // Add interactivity
+
+            // Use D3 to select element, change color and size
+            d3.select(this).attr({
+              fill: "#FF7F0E",
+              r: 6
+            });
+
+            // Specify where to put label of text
+            svg.append("text").attr({
+               id: "t" + d.date + "-" + d.New4 + "-" + i,  // Create an id for text so we can select it later for removing on mouseout
+                x: function() { return x(d.date); },
+                y: function() { return y(d.New4) - 15; }
+            })
+            .text(function() {
+              return [d.New4];  // Value of the text
+            })
+			.transition()
+        .duration(durTime)
+		.remove();
+          }
+		   function handleMouseOut4(d, i) {
+            // Use D3 to select element, change color back to normal
+            d3.select(this).attr({
+              fill: "White",
+              r: 3.5
+            });
+
+            // Select text by id and then remove
+            //d3.select( d.New4).remove();  // Remove text location
+          }
+
+		  /////////////////<END> Indiviual Line Code with Dots Line4  <END> /////////////////////////////////////
+
+	/////////////////Indiviual Line Code with Dots Line 5///////////////////////////////
+		 
+  // Add the valueline5 path.
+    svg.append("path")        //Payment Blue
+        .attr("class", "line")
+		.attr('stroke', 'green')
+		.attr('stroke-width', 2)
+		.attr("d", valueline5(data));
+
+		
+		// Add the scatterplot Payments
+    svg.selectAll("dot")
+        .data(data)
+		.enter().append("circle")
+        .attr("r", 3.5)
+        .attr("cx", function(d) { return x(d.date); })
+        .attr("cy", function(d) { return y(d.New5); })
+		.style("fill",'green')
+		//.on("mouseover", mouseover)
+		.on("mousemove", mousemoveRef5)
+		.on("mouseout", handleMouseOut5); 
+	
+		function mousemoveRef5(d, i) {  // Add interactivity
+
+            // Use D3 to select element, change color and size
+            d3.select(this).attr({
+              fill: "#FF7F0E",
+              r: 6
+            });
+
+            // Specify where to put label of text
+            svg.append("text").attr({
+               id: "t" + d.date + "-" + d.New5 + "-" + i,  // Create an id for text so we can select it later for removing on mouseout
+                x: function() { return x(d.date); },
+                y: function() { return y(d.New5) - 15; }
+            })
+            .text(function() {
+              return [d.New5];  // Value of the text
+            })
+			.transition()
+        .duration(durTime)
+		.remove();
+          }
+		   function handleMouseOut5(d, i) {
+            // Use D3 to select element, change color back to normal
+            d3.select(this).attr({
+              fill: "White",
+              r: 3.5
+            });
+
+            // Select text by id and then remove
+            //d3.select( d.New5).remove();  // Remove text location
+          }
+
+		  /////////////////<END> Indiviual Line Code with Dots Line5  <END> /////////////////////////////////////
+	
+	
+		
+		// Add the valueline6 path.
+    svg.append("path")        //Payment Blue
+        .attr("class", "line")
+		.attr('stroke', 'cyan')
+		.attr('stroke-width', 2)
+		.attr("d", valueline6(data));
+
+		
+		// Add the scatterplot Payments
+    svg.selectAll("dot")
+        .data(data)
+		.enter().append("circle")
+        .attr("r", 3.5)
+        .attr("cx", function(d) { return x(d.date); })
+        .attr("cy", function(d) { return y(d.New6); })
+		//.attr("visibility", function (d,i){if (d.New6=="NAN"){return 'hidden'} else {return 'visible'}})
+		.style("fill",'cyan')
+		//.on("mouseover", mousemoveRef6)
+		.on("mousemove", mousemoveRef6)
+		.on("mouseout", handleMouseOut6); 
+	
+		function mousemoveRef6(d, i) {  // Add interactivity
+
+            // Use D3 to select element, change color and size
+            d3.select(this).attr({
+              fill: "#FF7F0E",
+              r: 6
+            });
+
+            // Specify where to put label of text
+            svg.append("text").attr({
+               id: "t" + d.New6 + "-" + i,  // Create an id for text so we can select it later for removing on mouseout
+                x: function() { return x(d.date); },
+                y: function() { return y(d.New6) - 15; }
+            })
+            .text(function() {
+              return [formatTime(d.date),d.New6];  // Value of the text
+            })
+			 .transition()
+        .duration(durTime)
+		.remove();
+          }
+		   function handleMouseOut6(d, i) {
+            // Use D3 to select element, change color back to normal
+            d3.select(this).attr({
+              //fill: "White",
+              r: 3.5
+			  
+            });
+				
+          }
+  /////////////////<END> Indiviual Line Code with Dots Line6  <END> /////////////////////////////////////
+	svg.selectAll("dot")
+        .data(data)
+		.enter().append("circle")
+        .attr("r",4)
+        .attr("cx", function(d) { return x(d.date);  }) //
+        .attr("cy", function(d) { return y(d.New7);}) 
+		//.attr("visibility", "hidden")//
+		.style("fill",'white')
+		.style("boarder",'white');
+		
+    // Add the X Axis
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+		
+		
+    // Add the Y Axis
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+		
+	
+
+
+});
+
+</script>
+
+<div id="Cpt">
+<ul class="legend">
+    <li><span class="New1"></span> 0 - 30</li>
+    <li><span class="New2"></span> 31 - 60</li>
+	 <li><span class="New3"></span> 61 - 90</li>
+    <li><span class="New4"></span> 91 - 120</li>
+	 <li><span class="New5"></span> 121 - 150</li>
+    <li><span class="New6"></span> 151 - 180</li>
+</ul>
+</div>
+
+
+</body>
